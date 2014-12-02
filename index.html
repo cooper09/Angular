@@ -1,0 +1,55 @@
+<html ng-app="adminApp">
+<head>
+	<title>ClaimIt Admin</title>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>  -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.3.5/angular-route.js"></script>
+	<script src="js/services/data.js"></script>
+	<script src="js/app.js"></script>
+	
+	
+</head>
+
+<body>
+	<div ng-controller="mainController">
+		<!-- Top Nav Div-->
+		<div ng-show="isAuthenticated">
+			<a href="#" ng-click="onCampaignsClick()">campaigns</a> |
+			<a href="#" ng-click="onMSPsClick()">msps</a> |
+			<a href="#" ng-click="onCitiesClick()">cities</a> |
+			<a href="#" ng-click="onImagesClick()">images</a> |
+			<a href="#" ng-click="onAdsClick()">ads</a> |
+			<a href="#" ng-click="onLegalsClick()">legals</a>
+		</div>
+	
+		<!-- Login Div-->
+		<div ng-show="!isAuthenticated">
+			<form ng-submit="onLogin()">
+				<p><input ng-model="login_username" type="text" name="login" placeholder="username"></p>
+				<p><input ng-model="login_password" type="password" name="password" placeholder="password"></p>
+				<p class="submit">
+					<input type="submit" value="Login">
+				</p>
+			</form>
+		</div>
+	
+		<!-- Details Div-->
+		<div ng-show="isListView">
+			{{sectionName}}
+			<div>
+				<ul>
+					<li ng-repeat="item in listData" class="{{listItemClass}}">
+						<a href="#" ng-click="renderFormHtml('campaign',item)"><p ng-bind-html="renderListItemHtml(listItemType, item)"></p></a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- end list view -->
+		
+		<!-- List Div-->
+		<div ng-show="isDetailView">
+			<div >Detail View</div>
+			<p ng-bind-html="renderFormItemHtml(listItemType, item)"></p>
+		</div>
+	</div>
+</body>
+</html>

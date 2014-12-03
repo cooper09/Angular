@@ -39,16 +39,16 @@
 			<div>
 				<ul>
 					<li ng-repeat="item in listData" class="{{listItemClass}}">
-						<a href="#" ng-click="renderFormHtml('campaign',item)"><p ng-bind-html="renderListItemHtml(listItemType, item)"></p></a>
+						<a href="#" ng-click="showDetail(item)"><p ng-bind-html="renderListItemHtml(listItemType, item)"></p></a>
 					</li>
 				</ul>
 			</div>
 		</div><!-- end list view -->
 		
 		<!-- List Div-->
-		<div ng-show="isDetailView">
+		<div ng-show="isDetailsView">
 			<div >Detail View</div>
-			<p ng-bind-html="renderFormItemHtml(listItemType, item)"></p>
+			<p ng-bind-html="renderFormHtml(listItemType, item)"></p>
 		</div>
 	</div>
 </body>

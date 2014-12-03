@@ -107,27 +107,31 @@ adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function(
 	
 	$scope.renderFormHtml = function(form_class, item)
 	{
-		console.log("renderFormHtml: " + item );
-
+		console.log("form class: " + form_class+" item: " + item );
 		if(form_class == "campaign" )
 		{
 			return $sce.trustAsHtml("<div>Campaign: "+item+"</div>");
-		}else if(item_class == "msp" )
+		}else if(form_class == "msp" )
 		{
 			return $sce.trustAsHtml("<div>MSP: "+item+"</div>");
-		}else if(item_class == "city" )
+		}else if(form_class == "city" )
 		{
 			return $sce.trustAsHtml("<div>"+item+"</div>");
-		}else if(item_class == "image" )
+		}else if(form_class == "image" )
 		{
 			return $sce.trustAsHtml("<div>"+item+"</div>");
-		}else if(item_class == "legal" )
+		}else if(form_class == "legal" )
 		{
 			return $sce.trustAsHtml("<div>"+item+"</div>");
-		}else if(item_class == "ad" )
+		}else if(form_class == "ad" )
 		{
 			return $sce.trustAsHtml("<div>"+item+"</div>");
 		}
+	}
+
+	$scope.showDetail = function (item ) {
+		alert("Show the details...");
+		$scope.isDetailsView = true;
 	}
 
 }]);

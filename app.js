@@ -6,9 +6,9 @@ var testApp = angular.module('testApp', [
 
 var testController = angular.module('testController', []);
 var dateController = angular.module('dateController', []);
+var dataController = angular.module('dataController', []);
 
 testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFactory', function($scope, $rootScope, $filter, testFactory ) {
-
 
 	$scope.init = function() {
 		console.log("Test Controller in Control!!!");
@@ -48,14 +48,6 @@ testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFa
 		return days;
 	}//end CreateDictionary
 
-
-
-	
-/*	 $scope.changeDate = function(newdate) {
-	 //	console.log("change date: " + Date(newdate) );
-
-	 }  */
-
 }]);//end test controller 
 
 testApp.controller('dateController', ['$scope', function($scope) {
@@ -67,5 +59,20 @@ testApp.controller('dateController', ['$scope', function($scope) {
         	console.log('Date string change: '+ $scope.datevalue );
 
     	});  
+
+     }]);//end date controller 
+
+testApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
+    console.log("lets get some data:  ");
+
+    $scope.items = Array();
+
+    	$http.get('http://localhost:3000/').success(function(data) {
+			console.log("getData data:  ",data);
+			$scope.items = data;
+			console.log("an item: " + $scope.items );
+			$scope.itemid = data[0]._id;
+			$scope.item = data[0].item;
+		});
 
      }]);//end date controller 

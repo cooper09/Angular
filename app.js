@@ -1,20 +1,41 @@
 var testApp = angular.module('testApp', [
   'ngRoute',
-  'testController',
-  'dateController'
+  'testController', 
+  'dataController'
 ]);
 
 var testController = angular.module('testController', []);
-var dateController = angular.module('dateController', []);
 var dataController = angular.module('dataController', []);
+
+//set up routing only
+
+testApp.config(['$routeProvider', function($routeProvider) {
+	
+	$routeProvider.
+		when('/item', {
+			templateUrl: 'partials/campaign-list.html',
+			controller: 'CampaignListController'
+		}).
+		
+		when('/item/:itemId', {
+			templateUrl: 'partials/campaign-details.html',
+			controller: 'CampaignDetailsController'
+		}).
+
+		when('/new/item', {
+			templateUrl: 'partials/city-create.html',
+			controller: 'CityCreateController'
+		}).
+
+		otherwise({
+			redirectTo: '/'
+		});
+	}]);
 
 testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFactory', function($scope, $rootScope, $filter, testFactory ) {
 
 	$scope.init = function() {
 		console.log("Test Controller in Control!!!");
-		$scope.datevalue = new Date(2014, 9, 22);
-
-	//	console.log("currentDate: " + currentDate );
 	}
 
 	$scope.clickMe = function() {
@@ -35,32 +56,8 @@ testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFa
 
 	});
 
-	$scope.CreateDictionary = function () {
-		var days = new Array();
-		days['Sunday'] = 1;
-		days['Monday'] = 2;
-		days['Tuesday'] = 3;
-		days['Wednesday'] = 4;
-		days['Thursday'] = 5;
-		days['Friday'] = 6;
-		days['Saturday'] = 7;
-		
-		return days;
-	}//end CreateDictionary
-
 }]);//end test controller 
-
-testApp.controller('dateController', ['$scope', function($scope) {
-       $scope.value = new Date(2014, 9, 22);
-       console.log("set default date: " + $scope.datevalue );
-
-        $scope.$watch('defaultvalue', function () { 
-        	$scope.value = new Date(2014, 9, 22);
-        	console.log('Date string change: '+ $scope.datevalue );
-
-    	});  
-
-     }]);//end date controller 
+ 
 
 testApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
     console.log("lets get some data:  ");

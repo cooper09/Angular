@@ -22,7 +22,7 @@ testApp.config(['$routeProvider', function($routeProvider) {
 			controller: 'CampaignDetailsController'
 		}).
 
-		when('/new/item', {
+		when('/new', {
 			templateUrl: 'partials/city-create.html',
 			controller: 'CityCreateController'
 		}).

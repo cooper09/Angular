@@ -2,7 +2,7 @@
 
 var adminApp = angular.module('adminApp', []);
 
-adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function( $scope, $rootScope, $sce ) 
+adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', '$http', function( $scope, $rootScope, $sce, $http ) 
 {
 	
 	$scope.isAuthenticated = false;
@@ -12,6 +12,15 @@ adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function(
 	$scope.login_password = "";
 	$scope.sectionName = "";
 	$scope.listData = [];
+    $scope.items = Array();
+
+    	$http.get('http://localhost:3000/').success(function(data) {
+			console.log("getData data:  ",data);
+			$scope.items = data;
+			console.log("an item: " + $scope.items );
+			$scope.itemid = data[0]._id;
+			$scope.item = data[0].item;
+		});
 	
 	$scope.onCampaignsClick = function()
 	{
@@ -20,7 +29,7 @@ adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function(
 		$scope.isDetailsView = false;
 		$scope.listItemClass = "campaignitem";
 		$scope.listItemType = "campaign";
-		$scope.listData = ["campaign 1","campaign 2","campaign 3","campaign 4"];
+		$scope.listData = $scope.items; //["campaign 1","campaign 2","campaign 3","campaign 4"];
 	}
 	$scope.onMSPsClick = function()
 	{
@@ -86,7 +95,7 @@ adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function(
 	{
 		if(item_class == "campaign" )
 		{
-			return $sce.trustAsHtml("<div>Campaign:"+item+"</div>");
+			return $sce.trustAsHtml("<div>Campaign:"+item.item+"</div>");
 		}else if(item_class == "msp" )
 		{
 			return $sce.trustAsHtml("<div>MSP:"+item+"</div>");
@@ -108,8 +117,10 @@ adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function(
 	$scope.renderFormHtml = function(form_class, item)
 	{
 		console.log("form class: " + form_class+" item: " + item );
+		//console.log("render output...");
 		if(form_class == "campaign" )
 		{
+			console.log("iets a campaigin but item is always item one");
 			return $sce.trustAsHtml("<div>Campaign: "+item+"</div>");
 		}else if(form_class == "msp" )
 		{
@@ -130,8 +141,9 @@ adminApp.controller('mainController', ['$scope', '$rootScope', '$sce', function(
 	}
 
 	$scope.showDetail = function (item ) {
-		alert("Show the details...");
+		//alert("Show the details...");
 		$scope.isDetailsView = true;
+		$scope.item = item.item;
 	}
 
 }]);

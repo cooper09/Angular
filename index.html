@@ -35,7 +35,9 @@
 	
 		<!-- Details Div-->
 		<div ng-show="isListView">
-			{{sectionName}}
+			<h3>
+				<a href="#">Admin</a> / {{sectionName}} / <a href="{{createNewLink}}">New</a>
+			</h3>
 			<div>
 				<ul>
 					<li ng-repeat="item in listData" class="{{listItemClass}}">

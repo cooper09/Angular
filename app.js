@@ -1,5 +1,4 @@
 var testApp = angular.module('testApp', [
-  'ngRoute',
   'testController', 
   'dataController'
 ]);
@@ -9,34 +8,23 @@ var dataController = angular.module('dataController', []);
 
 //set up routing only
 
-testApp.config(['$routeProvider', function($routeProvider) {
-	
-	$routeProvider.
-		when('/item', {
-			templateUrl: 'partials/campaign-list.html',
-			controller: 'CampaignListController'
-		}).
-		
-		when('/item/:itemId', {
-			templateUrl: 'partials/campaign-details.html',
-			controller: 'CampaignDetailsController'
-		}).
+testApp.controller('testController', ['$scope', '$rootScope', '$filter', '$http', function($scope, $rootScope, $filter, $http ) {
 
-		when('/new/item', {
-			templateUrl: 'partials/city-create.html',
-			controller: 'CityCreateController'
-		}).
-
-		otherwise({
-			redirectTo: '/'
-		});
-	}]);
-
-testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFactory', function($scope, $rootScope, $filter, testFactory ) {
 
 	$scope.init = function() {
 		console.log("Test Controller in Control!!!");
-	}
+
+		$scope.items = Array();
+
+		var url="http://sonyainc.net/harlemreservations/test.php?callback=JSON_CALLBACK";
+
+			$http.jsonp(url)
+			    .success(function(data){
+			        console.log("jsonp data: " , data.booked );
+			        $scope.items  = data.booked;
+			    });
+
+	}//end init
 
 	$scope.clickMe = function() {
 		console.log("I've been clicked...");

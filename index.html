@@ -37,14 +37,10 @@ Angular Version
 
     var bookedDates = []
 
-    var d = new Date();
-    var current_month_value = d.getMonth();
-    var current_year_value = d.getFullYear();
-
      for (i=0 ; i < data.length ; i++ ) {
-      bookedObj = new Date (data[i].year , data[i].month , data[i].day );
-      bookedDates.push(bookedObj);
-    }
+	      bookedObj = new Date (data[i].year , data[i].month , data[i].day );
+	      bookedDates.push(bookedObj);
+	    }
 
     console.log ("final bookedData array: ", bookedDates );
 

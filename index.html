@@ -13,95 +13,17 @@
 <body ng-app="testApp">
 	<div ng-controller="testController" ng-init="init()">
 <!-- kalendar -->
-TEST
+Angular Version
 	<p>init data: {{items}}</p>
-	<table id="calendar_table">
-    <tr>
-    <th class="month_ctl" id="prev_month" width="40px"><button><-</button></th>
-      <th class="month_tite" id="month_title">Current Month</th>
-      <th class="month_ctl" id="next_month" width="40px"><button>-></button></th>
-    </tr>
-    <tr>
-      <table id="calendar">
-        <tr id="weekday_headers">
-          <th>Su</th>
-          <th>Mo</th>
-          <th>Tu</th>
-          <th>We</th>
-          <th>Th</th>
-          <th>Fr</th>
-          <th>Sa</th>
-        </tr>
-        <tr class="week" id="week0">
-          <th class="day" id="day0">0</th>
-          <th class="day" id="day1">0</th>
-          <th class="day" id="day2">0</th>
-          <th class="day" id="day3">0</th>
-          <th class="day" id="day4">0</th>
-          <th class="day" id="day5">0</th>
-          <th class="day" id="day6">0</th>
-        </tr>
-
-        <tr class="week" id="week1">
-          <th class="day" id="day7">0</th>
-          <th class="day" id="day8">0</th>
-          <th class="day" id="day9">0</th>
-          <th class="day" id="day10">0</th>
-          <th class="day" id="day11">0</th>
-          <th class="day" id="day12">0</th>
-          <th class="day" id="day13">0</th>
-        </tr>
-
-        <tr class="week" id="week2">
-          <th class="day" id="day14">0</th>
-          <th class="day" id="day15">0</th>
-          <th class="day" id="day16">0</th>
-          <th class="day" id="day17">0</th>
-          <th class="day" id="day18">0</th>
-          <th class="day" id="day19">0</th>
-          <th class="day" id="day20">0</th>
-        </tr>
-
-        <tr class="week" id="week3">
-          <th class="day" id="day21">0</th>
-          <th class="day" id="day22">0</th>
-          <th class="day" id="day23">0</th>
-          <th class="day" id="day24">0</th>
-          <th class="day" id="day25">0</th>
-          <th class="day" id="day26">0</th>
-          <th class="day" id="day27">0</th>
-        </tr>
-
-        <tr class="week" id="week4">
-          <th class="day" id="day28">0</th>
-          <th class="day" id="day29">0</th>
-          <th class="day" id="day30">0</th>
-          <th class="day" id="day31">0</th>
-          <th class="day" id="day32">0</th>
-          <th class="day" id="day33">0</th>
-          <th class="day" id="day34">0</th>
-        </tr>
-
-        <tr class="week" id="week5">
-          <th class="day" id="day35">0</th>
-          <th class="day" id="day36">0</th>
-          <th class="day" id="day37">0</th>
-          <th class="day" id="day38">0</th>
-          <th class="day" id="day39">0</th>
-          <th class="day" id="day40">0</th>
-          <th class="day" id="day41">0</th>
-        </tr>
-      </table>
-    </tr>
-  </table>
-
+	
+	  <div id="cal_div">insert calender here</div>
 
 <!-- end kalendar -->
-<p></p>
-	<button ng-click="startScanner()">Click Me 2</button>
 	<p></p>
-	<button id="button">Stich Here</button>
+	<button id="button">Init Kalendar</button>
+
 	
+
 </div><!--end testController -->
 <script>
   $('#button').click(function(){
@@ -110,7 +32,8 @@ TEST
         .scope()
         .items;
     
-    alert("here's the Angular data: " + data );
+    console.log("here's the Angular data: ", data[0].year );
+    console.log("amount of data: ", data.length );
 
     var bookedDates = []
 
@@ -118,19 +41,27 @@ TEST
     var current_month_value = d.getMonth();
     var current_year_value = d.getFullYear();
 
-     for (i=1 ; i < 4 ; i++ ) {
-      var bookedObj = new Object();
-      bookedObj = new Date (current_year_value, current_month_value, data[i]);
+     for (i=0 ; i < data.length ; i++ ) {
+      bookedObj = new Date (data[i].year , data[i].month , data[i].day );
       bookedDates.push(bookedObj);
     }
 
     console.log ("final bookedData array: ", bookedDates );
 
-    //var blocked_dates = [new Date(2015, 6, 8),new Date(2015, 6, 9),new Date(2015, 6, 10),new Date(2016, 0, 29)];
 
-    var blocked_dates = bookedDates;
-
+				var kal = new Kalender();
+				    var cal_div = $("#cal_div");
+				     kal.insertCalender(cal_div, bookedDates, function(datePicked){
+				      console.log("picked: "+datePicked);
+				    });  
 	});
-</script>        
+</script>  
+<script>
+	$(document).ready( function () {
+		alert("document ready...");
+				  	  
+	});
+		  
+</script>      
 </body>
 </html>
